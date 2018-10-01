@@ -1,0 +1,579 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "description": "API para a entidade Users do segmento HealthCare para produtos TOTVS",
+      "url": "http://{serverUrl}:{serverHttpPort}/api/healthcare/hat/v1",
+      "variables": {
+        "serverUrl": {
+          "default": "localhost"
+        },
+        "serverHttpPort": {
+          "default": "4202"
+        }
+      }
+    }
+  ],
+  "info": {
+    "description": "API para a entidade Users do segmento HealthCare para produtos TOTVS",
+    "version": "1.000",
+    "title": "Users",
+    "contact": {
+      "name": "T-Talk",
+      "url": "api.Totvs.com.br",
+      "email": "comiteintegracao@totvs.com.br"
+    },
+    "x-totvs": {
+      "messageDocumentation": {
+        "name": "Users",
+        "description": "Users",
+        "segment": "HealthCare"
+      },
+      "productInformation": [
+        {
+          "product": "hat",
+          "contact": "hat@totvs.com.br",
+          "description": "Usuários",
+          "adapter": "RestUser.prw"
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "Retorna informacoes dos Usuários",
+        "x-totvs": {
+          "productInformation": [
+            {
+              "product": "hat",
+              "avaliable": true,
+              "minimalVersion": ""
+            }
+          ]
+        },
+        "description": "Retorna um lote de usuário de acordo com os parametros enviados. É possivel filtrar o resultado através de todas as propriedades com excessão do CBOS",
+        "operationId": "getLotUser",
+        "parameters": [
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Authorization"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Order"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Page"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/PageSize"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Expand"
+          },
+          {
+            "$ref": "#/components/parameters/Expires_at"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/PagedUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Erro ao localizar usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "Inclusão de usuário",
+        "x-totvs": {
+          "productInformation": [
+            {
+              "product": "hat",
+              "avaliable": true,
+              "minimalVersion": "",
+              "note": "E possivel realizar a inclusão de um único usuário. Para realizar a inclusão de apenas um, enviar o body com o padrão de paginação"
+            }
+          ]
+        },
+        "description": "Realiza a inclusão de um usuário conforme body da requisição.",
+        "operationId": "postUser",
+        "parameters": [
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Authorization"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Expand"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Expires_at"
+          }
+        ],
+        "requestBody": {
+          "description": "Usuário a ser incluído.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/professional"
+                  },
+                  {
+                    "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/PagedProfessional"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Operação realizada com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/professional"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro durante inclusão do usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/professionalId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "single"
+        ],
+        "summary": "Retorna informacoes dos Usuários",
+        "x-totvs": {
+          "productInformation": [
+            {
+              "product": "hat",
+              "avaliable": true,
+              "minimalVersion": ""
+            }
+          ]
+        },
+        "description": "Retorna um usuário de acordo com o ID informado",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Authorization"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Fields"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Expand"
+          },
+          {
+            "$ref": "#/components/parameters/Expires_at"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/professional"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Erro ao localizar usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "single"
+        ],
+        "summary": "Altera informações do Usuário",
+        "x-totvs": {
+          "productInformation": [
+            {
+              "product": "hat",
+              "avaliable": true,
+              "minimalVersion": ""
+            }
+          ]
+        },
+        "description": "Altera informações do usuário de acordo com o ID informado",
+        "operationId": "putUser",
+        "parameters": [
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Authorization"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Fields"
+          },
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Expand"
+          },
+          {
+            "$ref": "#/components/parameters/Expires_at"
+          }
+        ],
+        "requestBody": {
+          "description": "Usuário a ser incluído.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/professional"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/Professional_1_000.json#/definitions/professional"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados do usuário inválido"
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "single"
+        ],
+        "summary": "Deleta um usuário",
+        "x-totvs": {
+          "productInformation": [
+            {
+              "product": "hat",
+              "avaliable": true,
+              "minimalVersion": "",
+              "note": ""
+            }
+          ]
+        },
+        "description": "Deleta um usuário conforme ID enviado.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/Expires_at"
+          },
+          {
+            "$ref": "#/components/parameters/healthInsurerCode"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação realizada com sucesso!"
+          },
+          "404": {
+            "description": "Usuário não localizado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Expires_at": {
+        "name": "expires_at",
+        "in": "header",
+        "required": false,
+        "description": "Tempo de expiracao do token",
+        "schema": {
+          "type": "string"
+        },
+        "x-totvs": [
+          {
+            "product": "hat",
+            "required": true,
+            "type": "string",
+            "length": "6",
+            "note": "Não possui campo relacionado",
+            "available": true
+          }
+        ]
+      },
+      "userId": {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "description": "Quantidade de Itens por Página",
+        "schema": {
+          "type": "string"
+        },
+        "x-totvs": [
+          {
+            "product": "hat",
+            "field": "BB0.BB0_CODIGO",
+            "required": true,
+            "type": "string",
+            "length": "6",
+            "note": "Código do Usuário na operadora",
+            "available": true
+          }
+        ]
+      },
+      "healthInsurerCode": {
+        "name": "healthInsurerCode",
+        "in": "query",
+        "description": "Código da operadora",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 20
+        },
+        "x-totvs": [
+          {
+            "product": "hat",
+            "field": "BAU.BAU_CODIGO",
+            "required": true,
+            "type": "string",
+            "length": "6",
+            "note": "Código da operadora",
+            "available": true
+          }
+        ]
+      }
+    },
+    "schemas": {}
+  },
+  "definitions": {
+    "PagedUser": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.ID",
+              "required": false,
+              "type": "number",
+              "length": "10",
+              "note": "ID do usuário",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "idAuth": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.idauth",
+              "required": false,
+              "type": "number",
+              "length": "10",
+              "note": "Idauth do usuário",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "username": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.username",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Username do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "email": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.email",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Email do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "name": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.nome",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Nome do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "document": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.doc",
+              "required": false,
+              "type": "number",
+              "length": "14",
+              "note": "Documento do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "admin": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.admin",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Administrador",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "typeUser": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.tipo_user",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Tipo de usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "status": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.status",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Status do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "deleted": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.deleted",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Deletado ou não",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}
