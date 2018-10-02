@@ -1,0 +1,422 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "description": "API para a entidade Users do segmento HealthCare para produtos TOTVS",
+      "url": "api.totvs.com.br"
+    }
+  ],
+  "info": {
+    "description": "API para a entidade Users do segmento HealthCare para produtos TOTVS",
+    "version": "2.000",
+    "title": "Users",
+    "contact": {
+      "name": "T-Talk",
+      "url": "api.Totvs.com.br",
+      "email": "comiteintegracao@totvs.com.br"
+    },
+    "x-totvs": {
+      "messageDocumentation": {
+        "name": "Users",
+        "description": "Users",
+        "segment": "HealthCare"
+      },
+      "productInformation": [
+        {
+          "product": "hat",
+          "contact": "hat@totvs.com.br",
+          "description": "Usuários",
+          "adapter": "RestUser.prw"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "PagedUser": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/Paging"
+        },
+        {
+          "$ref": "#/definitions/users"
+        }
+      ]
+    },
+    "users": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/user"
+          }
+        }
+      }
+    },
+    "user": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "userID": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.ID",
+              "required": false,
+              "type": "number",
+              "length": "10",
+              "note": "ID do usuário",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "authID": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.idauth",
+              "required": false,
+              "type": "number",
+              "length": "10",
+              "note": "Idauth do usuário",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "username": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.username",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Username do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "email": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.email",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Email do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "name": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.nome",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Nome do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "document": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.doc",
+              "required": false,
+              "type": "number",
+              "length": "14",
+              "note": "Documento do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "admin": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.admin",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Administrador",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "typeUser": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.tipo_user",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Tipo de usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "status": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.status",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Status do usuário",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "deleted": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuarios.deleted",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "Deletado ou não",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "healthInsureData": {
+          "$ref": "#/definitions/healthInsureData"
+        },
+        "userInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/userInfo"
+            }
+          ]
+        }
+      }
+    },
+    "healthInsureData": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "healthInsureDataID": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "tenants.ID",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "healthInsureDataID de tenant",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "name": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "tenants.nome",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Nome de tenant",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "description": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "tenants.descricao",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Descrição de tenant",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "ansRegistry": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "tenants.regAns",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Regans",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "deleted": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "tenants.deleted",
+              "required": false,
+              "type": "string",
+              "length": "1",
+              "note": "Deleted",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        }
+      }
+    },
+    "userInfo": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "userInfoID": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.ID",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "ID de tenant",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "usersTenantID": {
+          "description": "",
+          "type": "number",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.idusuariostenant",
+              "required": false,
+              "type": "number",
+              "length": "1",
+              "note": "ID de usuário tenant",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "providerID": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.idprestador",
+              "required": false,
+              "type": "string",
+              "length": "1",
+              "note": "ID de prestador",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "location": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.local_atendimento",
+              "required": false,
+              "type": "string",
+              "length": "50",
+              "note": "Local de atendimento",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "cnes": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.cnes",
+              "required": false,
+              "type": "string",
+              "length": "10",
+              "note": "Cnes",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        },
+        "deleted": {
+          "description": "",
+          "type": "string",
+          "x-totvs": [
+            {
+              "product": "hat",
+              "field": "usuariotenantprestinfo.deleted",
+              "required": false,
+              "type": "string",
+              "length": "1",
+              "note": "Cnes",
+              "available": true,
+              "canUpdate": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}
