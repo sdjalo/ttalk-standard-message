@@ -154,9 +154,13 @@
             }
           ]
         },
-        "admin": {
+        "profile": {
           "description": "",
           "type": "number",
+          "enum": [
+            "1",
+            "2"
+          ],
           "x-totvs": [
             {
               "product": "hat",
@@ -164,15 +168,21 @@
               "required": false,
               "type": "number",
               "length": "1",
-              "note": "Administrador",
+              "note": "0 - Usuário / 1 - Administrador",
               "available": true,
               "canUpdate": true
             }
           ]
         },
-        "typeUser": {
+        "type": {
           "description": "",
           "type": "number",
+          "enum": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
           "x-totvs": [
             {
               "product": "hat",
@@ -180,7 +190,7 @@
               "required": false,
               "type": "number",
               "length": "1",
-              "note": "Tipo de usuário",
+              "note": "1 - TotvsSupport / 2 - HealthInsurer / 3 - HealthProvider / 4 - Beneficiary",
               "available": true,
               "canUpdate": true
             }
