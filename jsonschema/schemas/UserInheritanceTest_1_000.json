@@ -37,15 +37,36 @@
     }
   },
 
-  "definitions": {     
-    "UserParentSchema": {
-      "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions"
-    },
+  "definitions": {    
     "PagedUsers": {
       "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions/PagedUsers"
     },
     "UserInfo": {
       "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions/UserInfo"
     }
+
+    ....
+
+    "NewProperty": {
+      "type": "object",      
+      "properties": {
+            "password": {
+              "description": "Senha do usuário",
+              "type": "string",
+              "x-totvs": [
+                {
+                  "product": "PROTHEUS",
+                  "available": true,
+                  "note": "Senha do usuário",
+                  "field": "usr_pswmd5",
+                  "length": "32",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
   }
 }
