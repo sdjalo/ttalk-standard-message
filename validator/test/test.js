@@ -109,7 +109,7 @@ fs.readdir(dirname, function (err, filenames) {
           });
          
           //TODO: Mandar essa logica para outro arquivo
-          it("should reference valid schema files", function (done) {
+          it("should reference valid JSON schema files", function (done) {
             this.timeout(30000);
             setTimeout(done, 30000);
             ///var responses = []; //TODO: Vai ser últil, provavelmente, para validar se o objeto existe no schema

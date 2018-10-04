@@ -73,6 +73,13 @@ var checkHttpVerbInUrl = function (pathkey) {
     results.useHttpVerbInEndpointUrl;
 }
 
+var checkIfPutAndDeleteHaveId = function(httpVerbkey, pathkey) {
+    if((httpVerbkey=="put"||httpVerbkey=="delete") && results.useIdInAllPutsAndDeletes != false) {
+        results.useIdInAllPutsAndDeletes = pathkey.includes("{");    //TODO: Ver pq isso não funcionou
+        //TODO: Validar se dentro de params tem o ID    
+    }
+}
+
 var checkIfSchemaIsSettedToExternaFile = function (responseRequest) {
     if (responseRequest) {
         if (responseRequest.content["application/json"].schema) {
@@ -90,7 +97,6 @@ var checkIfSchemaIsSettedToExternaFile = function (responseRequest) {
     }
 }
 
-//TODO: Pegar schemas de request também. Só adicionar se o schema (sem levar em consideração o que vem depois do #/definition) for diferente
 var addSchema = function (responseRequest) {
     if (responseRequest) {
         if (responseRequest.content["application/json"].schema) {

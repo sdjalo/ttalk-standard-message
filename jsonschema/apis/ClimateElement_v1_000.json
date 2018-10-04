@@ -166,7 +166,7 @@
                 }
             }
         },
-        "/climateElements/{id}": {
+        "/climateElements/oi": {
             "get": {
                 "tags": [
                     "climate-element"
