@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#",
+
+  "info": {
+    "description": "Contrato de Mensagem Padronizada para a usuário do produtos TOTVS",
+    "version": "1.000",
+    "title": "Users",
+    "contact": {
+      "name": "T-Talk",
+      "url": "API.Totvs.com.br",
+      "email": "comiteintegracao@totvs.com.br"
+    },
+    "x-totvs": {
+      "transactionDefinition": {
+        "subType": "event",
+        "businessContentType": {
+          "type": "object",
+          "$ref": "#/definitions/UserInfo"
+        },
+        "returnContentType": {
+          "type": "object",
+          "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/ListOfInternalId_1_000.json#/definitions/ReturnContentWithModelType"
+        }
+      },
+      "messageDocumentation": {
+        "name": "Users",
+        "description": "Usuários do Sistema",
+        "segment": "FrameWork"
+      },
+      "productInformation": [{
+        "product": "protheus",
+        "contact": "Protheus_FW@totvs.com.br",
+        "description": "Cadastro de Filial",
+        "adapter": "apcfg230i.prw",
+        "helpUrl": "link aqui"
+      }]
+    }
+  },
+
+  "definitions": {
+    "allOf": [{
+        "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "SpecificAndNewUserStuff": {
+            "description": "É uma nova propriedade, que poderá ser acessada juntamente com as que foram herdadas acima.",
+            "properties": {
+              "id": {
+                "description": "Código do usuário",
+                "type": "string",
+                "x-totvs": [{
+                  "product": "PROTHEUS",
+                  "available": true,
+                  "note": "Código do usuário",
+                  "field": "user_id",
+                  "length": "6",
+                  "type": "string"
+                }]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
