@@ -57,6 +57,9 @@
     },
     "UserParentSchema": {
       "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions"
+    },
+    "UserPagedUsers": {
+      "$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/User_1_000.json#/definitions/PagedUsers"
     }
   }
 }
