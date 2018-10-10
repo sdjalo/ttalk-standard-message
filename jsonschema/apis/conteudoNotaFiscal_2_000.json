@@ -3,7 +3,7 @@
   "servers": [
     {
       "description": "API para Consulta RFB",
-      "url": "http://localhost:8082"
+      "url": "http://localhost:8081"
     }
   ],
   "info": {
